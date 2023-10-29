@@ -1,19 +1,23 @@
-import { BiSignal3, BiPlus, BiDotsHorizontalRounded } from "react-icons/bi";
+import { BiPlus, BiDotsHorizontalRounded } from "react-icons/bi";
 
 import Card from "../Card/Card";
 import styles from "./Board.module.css";
+import { Ticket, User } from "./BoardContainer";
 
-export default function Board() {
+interface BoardProps {
+  name: string;
+  items: Ticket[];
+  users: User[];
+}
+
+const Board: React.FC<BoardProps> = ({ name, items, users }) => {
   return (
     <div className={styles.board}>
       <div className={styles.header}>
         <div className={styles.left}>
-          <span>
-            <BiSignal3 />
-          </span>
           <div className={styles.boardInfo}>
-            <p>High</p>
-            <p>5</p>
+            <p>{name}</p>
+            <p>({items.length})</p>
           </div>
         </div>
 
@@ -27,12 +31,12 @@ export default function Board() {
         </div>
       </div>
       <div className={styles.cardsContainer}>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {items.map((item) => (
+          <Card key={item.id} item={item} users={users} />
+        ))}
       </div>
     </div>
   );
-}
+};
+
+export default Board;

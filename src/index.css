@@ -29,6 +29,11 @@
   --gray-dark-1: #333333;
   --gray-dark-2: #555555;
   --gray-dark-3: #999999;
+
+  --small: 640px;
+  --medium: 768px;
+  --large: 1024px;
+  --extra-large: 1280px;
 }
 
 a {

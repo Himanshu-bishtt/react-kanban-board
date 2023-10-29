@@ -1,6 +1,5 @@
 .boardContainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-  overflow-x: auto;
   margin: 1rem;
 }

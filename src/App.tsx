@@ -1,9 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import Header from "./components/Header/Header";
 import BoardContainer from "./components/Board/BoardContainer";
 
 function App() {
+  const [tickets, setTickets] = useState([]);
+  const [users, setUsers] = useState([]);
+
   useEffect(() => {
     async function getData() {
       try {
@@ -11,7 +14,8 @@ function App() {
           "https://api.quicksell.co/v1/internal/frontend-assignment"
         );
         const data = await res.json();
-        console.log(data);
+        setTickets(data.tickets);
+        setUsers(data.users);
       } catch (err) {
         console.log(err);
       }
@@ -22,7 +26,7 @@ function App() {
   return (
     <main>
       <Header />
-      <BoardContainer />
+      <BoardContainer tickets={tickets} users={users} />
     </main>
   );
 }
