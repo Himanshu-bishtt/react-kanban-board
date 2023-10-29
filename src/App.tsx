@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 
 import Header from "./components/Header/Header";
-import BoardContainer from "./components/Board/BoardContainer";
+import BoardContainer, {
+  Ticket,
+  User,
+} from "./components/Board/BoardContainer";
+import Users from "./components/Users/Users";
 
 function App() {
-  const [tickets, setTickets] = useState([]);
-  const [users, setUsers] = useState([]);
+  const [tickets, setTickets] = useState<Ticket[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
     async function getData() {
@@ -26,6 +30,7 @@ function App() {
   return (
     <main>
       <Header />
+      <Users users={users} />
       <BoardContainer tickets={tickets} users={users} />
     </main>
   );

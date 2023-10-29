@@ -1,0 +1,22 @@
+.users {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  margin: 1rem;
+}
+
+.users button {
+  background-color: var(--white);
+  color: var(--gray-dark-1);
+  padding: 0.5rem 0.6rem;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  transition: all 0.5s;
+}
+
+.users button:hover {
+  background-color: var(--primary);
+  color: var(--white);
+  transform: translateY(-0.15rem);
+}
