@@ -1,0 +1,10 @@
+.board {
+  background-color: blue;
+  padding: 1rem;
+  width: 25rem;
+  margin: 1rem 2rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import Header from "./components/header/Header";
+import Header from "./components/Header/Header";
+import Board from "./components/Board/Board";
 
 function App() {
   useEffect(() => {
@@ -20,6 +21,7 @@ function App() {
   return (
     <main>
       <Header />
+      <Board />
     </main>
   );
 }
