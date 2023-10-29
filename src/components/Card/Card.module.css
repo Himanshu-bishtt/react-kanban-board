@@ -24,6 +24,8 @@
 }
 
 .title {
+  margin-top: 0.7rem;
+  font-size: 0.9rem;
 }
 
 .content {
@@ -49,5 +51,5 @@
 }
 
 .content p {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
