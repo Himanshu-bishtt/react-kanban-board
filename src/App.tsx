@@ -1,6 +1,7 @@
 import { useEffect } from "react";
+
 import Header from "./components/Header/Header";
-import Board from "./components/Board/Board";
+import BoardContainer from "./components/Board/BoardContainer";
 
 function App() {
   useEffect(() => {
@@ -21,7 +22,7 @@ function App() {
   return (
     <main>
       <Header />
-      <Board />
+      <BoardContainer />
     </main>
   );
 }
