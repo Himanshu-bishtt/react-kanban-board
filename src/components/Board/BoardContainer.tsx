@@ -24,8 +24,6 @@ const BoardContainer: React.FC<BoardContainerProps> = () => {
   const { tickets, users } = useApp();
   const { grouping } = useFilter();
 
-  console.log(grouping);
-
   let itemsPerBoard;
 
   if (grouping === "status") {

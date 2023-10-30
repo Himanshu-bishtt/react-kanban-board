@@ -12,7 +12,7 @@ interface BoardProps {
 }
 
 const Board: React.FC<BoardProps> = ({ name, items, users }) => {
-  const { grouping } = useFilter();
+  const { grouping, ordering } = useFilter();
 
   let boardName;
   if (grouping === "priority") {
@@ -21,6 +21,17 @@ const Board: React.FC<BoardProps> = ({ name, items, users }) => {
     boardName = users.find((user) => user.id === name)?.name;
   } else if (grouping === "status") {
     boardName = name;
+  }
+
+  let filteredItems;
+  if (ordering === "priority") {
+    filteredItems = items.sort((a, b) => b.priority - a.priority);
+  } else if (ordering === "title") {
+    filteredItems = items.sort((a, b) => {
+      if (a.title < b.title) return -1;
+      if (a.title > b.title) return 1;
+      else return 0;
+    });
   }
 
   return (
@@ -40,7 +51,7 @@ const Board: React.FC<BoardProps> = ({ name, items, users }) => {
         </div>
       </div>
       <div className={styles.cardsContainer}>
-        {items.map((item) => (
+        {filteredItems?.map((item) => (
           <Card key={item.id} item={item} users={users} />
         ))}
       </div>
