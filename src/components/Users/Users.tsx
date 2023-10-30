@@ -1,4 +1,4 @@
-import { useApp } from "../../context/AppContext";
+import { useApp } from "../../hooks/UseApp";
 import { getInitials } from "../../helpers";
 import { User } from "../Board/BoardContainer";
 import styles from "./Users.module.css";
