@@ -9,11 +9,11 @@ import {
 } from "react-icons/fc";
 
 import styles from "./Card.module.css";
-import { Ticket, User } from "../Board/BoardContainer";
+import { Ticket } from "../Board/BoardContainer";
+import { useApp } from "../../hooks/UseApp";
 
 interface CardProps {
   item: Ticket;
-  users: User[];
 }
 
 function getPriorityIcon(priority: number) {
@@ -43,8 +43,10 @@ function getPriorityIcon(priority: number) {
   return priorityIcon;
 }
 
-const Card: React.FC<CardProps> = ({ item, users }) => {
+const Card: React.FC<CardProps> = ({ item }) => {
+  const { users } = useApp();
   const priorityIcon = getPriorityIcon(item.priority);
+
   return (
     <div className={styles.card}>
       <div className={styles.header}>

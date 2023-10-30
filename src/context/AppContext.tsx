@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useState } from "react";
+import { createContext, useCallback, useState } from "react";
 import { Ticket, User } from "../components/Board/BoardContainer";
 
 interface AppContextProps {
@@ -47,11 +47,3 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     </AppContext.Provider>
   );
 };
-
-// eslint-disable-next-line react-refresh/only-export-components
-export function useApp() {
-  const context = useContext(AppContext);
-  if (context === undefined)
-    throw new Error("AppContext was used outside AppProvider");
-  return context;
-}

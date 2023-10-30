@@ -2,22 +2,20 @@ import { useState } from "react";
 
 import { BiSliderAlt, BiChevronDown } from "react-icons/bi";
 
-import { useFilter } from "../../context/FilterContext";
 import styles from "./Header.module.css";
 import logo from "../../assets/logo.png";
+import { useFilter } from "../../hooks/UseFilter";
 
 export default function Header() {
   const [popupOpen, setPopupOpen] = useState(false);
-  const { grouping, ordering, setGrouping, setOrdering } = useFilter();
+  const { grouping, ordering, onGrouping, onOrdering } = useFilter();
 
   function handleGrouping(event: React.ChangeEvent<HTMLSelectElement>) {
-    setGrouping(event.target.value);
-    localStorage.setItem("grouping", event.target.value);
+    onGrouping(event.target.value);
   }
 
   function handleOrdering(event: React.ChangeEvent<HTMLSelectElement>) {
-    setOrdering(event.target.value);
-    localStorage.setItem("ordering", event.target.value);
+    onOrdering(event.target.value);
   }
 
   return (
@@ -38,6 +36,7 @@ export default function Header() {
           </span>
         </div>
       </button>
+
       <div
         className={styles.popup}
         style={

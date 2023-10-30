@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 
-import { useApp } from "./context/AppContext";
+import { useApp } from "./hooks/UseApp";
+import Main from "./components/Main/Main";
 import Header from "./components/Header/Header";
 import BoardContainer from "./components/Board/BoardContainer";
-import Main from "./components/Main/Main";
 
 function App() {
   const { getData } = useApp();

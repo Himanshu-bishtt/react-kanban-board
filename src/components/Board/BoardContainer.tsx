@@ -1,7 +1,6 @@
-import { useApp } from "../../context/AppContext";
+import { useFilter } from "../../hooks/UseFilter";
 import styles from "./BoardContainer.module.css";
 import Board from "./Board";
-import { useFilter } from "../../context/FilterContext";
 
 export type Ticket = {
   id: string;
@@ -21,45 +20,7 @@ export type User = {
 interface BoardContainerProps {}
 
 const BoardContainer: React.FC<BoardContainerProps> = () => {
-  const { tickets, users } = useApp();
-  const { grouping } = useFilter();
-
-  let itemsPerBoard;
-
-  if (grouping === "status") {
-    const totalBoards = Array.from(
-      new Set(tickets.map((el: Ticket) => el.status))
-    );
-
-    itemsPerBoard = totalBoards.map((board) => {
-      return {
-        status: board,
-        items: tickets.filter((ticket: Ticket) => ticket.status === board),
-      };
-    });
-  } else if (grouping === "user") {
-    const totalBoards = Array.from(
-      new Set(tickets.map((el: Ticket) => el.userId))
-    );
-
-    itemsPerBoard = totalBoards.map((board) => {
-      return {
-        status: board,
-        items: tickets.filter((ticket: Ticket) => ticket.userId === board),
-      };
-    });
-  } else if (grouping === "priority") {
-    const totalBoards = Array.from(
-      new Set(tickets.map((el: Ticket) => el.priority).sort((a, b) => b - a))
-    );
-
-    itemsPerBoard = totalBoards.map((board) => {
-      return {
-        status: board,
-        items: tickets.filter((ticket: Ticket) => ticket.priority === board),
-      };
-    });
-  }
+  const { itemsPerBoard } = useFilter();
 
   return (
     <div className={styles.boardContainer}>
@@ -68,7 +29,6 @@ const BoardContainer: React.FC<BoardContainerProps> = () => {
           key={`board-item-${index}`}
           name={board.status}
           items={board.items}
-          users={users}
         />
       ))}
     </div>
