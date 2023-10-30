@@ -22,6 +22,7 @@
 .boardInfo {
   display: flex;
   gap: 0.5rem;
+  font-size: 0.9rem;
   color: var(--gray-dark-3);
 }
 
@@ -33,7 +34,7 @@
 
 .header svg {
   color: var(--gray-dark-3);
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 
 .cardsContainer {

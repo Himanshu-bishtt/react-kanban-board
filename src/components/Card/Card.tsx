@@ -1,7 +1,7 @@
 import { IoWarningOutline } from "react-icons/io5";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
-
+import { GoDotFill } from "react-icons/go";
 import {
   FcHighPriority,
   FcLowPriority,
@@ -45,14 +45,19 @@ function getPriorityIcon(priority: number) {
 
 const Card: React.FC<CardProps> = ({ item }) => {
   const { users } = useApp();
+  const user = users.find((user) => user.id === item.userId);
   const priorityIcon = getPriorityIcon(item.priority);
 
   return (
     <div className={styles.card}>
       <div className={styles.header}>
-        <p>{item.id}</p>
-        {/* <img src="https://i.pravatar.cc/24?u=118836" alt="user image" /> */}
-        <p>{users.find((user) => user.id === item.userId)?.name}</p>
+        <p className={styles.userId}>{item.id}</p>
+        <div className={styles.userInfo}>
+          <span>
+            {user?.available ? <GoDotFill color="#06cb06" /> : <GoDotFill />}{" "}
+          </span>
+          <p>{user?.name}</p>
+        </div>
       </div>
       <p className={styles.title}>{item.title}</p>
       <div className={styles.content}>

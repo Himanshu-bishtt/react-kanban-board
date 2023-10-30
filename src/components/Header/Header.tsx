@@ -36,6 +36,15 @@ export default function Header() {
     setIsDark(theme === "dark" ? true : false);
   }, [theme]);
 
+  useEffect(() => {
+    function callback(e: KeyboardEvent) {
+      if (e.code === "Escape") setPopupOpen(false);
+    }
+    document.addEventListener("keydown", callback);
+
+    return () => document.removeEventListener("keydown", callback);
+  }, []);
+
   return (
     <header className={styles.header}>
       <img src={isDark ? logoDark : logo} alt="kanban board logo" />
