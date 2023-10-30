@@ -15,14 +15,17 @@ export default function Header() {
 
   function handleTheme(event: React.ChangeEvent<HTMLSelectElement>) {
     onTheme(event.target.value);
+    setPopupOpen(false);
   }
 
   function handleGrouping(event: React.ChangeEvent<HTMLSelectElement>) {
     onGrouping(event.target.value);
+    setPopupOpen(false);
   }
 
   function handleOrdering(event: React.ChangeEvent<HTMLSelectElement>) {
     onOrdering(event.target.value);
+    setPopupOpen(false);
   }
 
   useEffect(() => {

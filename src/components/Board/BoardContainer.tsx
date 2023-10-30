@@ -1,7 +1,8 @@
+import { useEffect } from "react";
+
 import { useFilter } from "../../hooks/UseFilter";
 import styles from "./BoardContainer.module.css";
 import Board from "./Board";
-import { useEffect } from "react";
 
 export type Ticket = {
   id: string;
