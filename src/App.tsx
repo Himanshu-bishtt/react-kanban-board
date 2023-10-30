@@ -7,7 +7,7 @@ import Main from "./components/Main/Main";
 import { useApp } from "./context/AppContext";
 
 function App() {
-  const { tickets, users, getData } = useApp();
+  const { getData } = useApp();
 
   useEffect(() => {
     getData();
@@ -16,8 +16,8 @@ function App() {
   return (
     <Main>
       <Header />
-      <Users users={users} />
-      <BoardContainer tickets={tickets} users={users} />
+      <Users />
+      <BoardContainer />
     </Main>
   );
 }

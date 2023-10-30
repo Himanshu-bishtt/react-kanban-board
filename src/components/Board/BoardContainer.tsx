@@ -1,5 +1,6 @@
-import Board from "./Board";
+import { useApp } from "../../context/AppContext";
 import styles from "./BoardContainer.module.css";
+import Board from "./Board";
 
 export type Ticket = {
   id: string;
@@ -16,18 +17,18 @@ export type User = {
   available: boolean;
 };
 
-interface BoardContainerProps {
-  tickets: Ticket[];
-  users: User[];
-}
+interface BoardContainerProps {}
 
-const BoardContainer: React.FC<BoardContainerProps> = ({ tickets, users }) => {
-  const totalBoards = Array.from(new Set(tickets.map((el) => el.status)));
+const BoardContainer: React.FC<BoardContainerProps> = () => {
+  const { tickets, users } = useApp();
+  const totalBoards = Array.from(
+    new Set(tickets.map((el: Ticket) => el.status))
+  );
 
   const itemsPerBoard = totalBoards.map((board) => {
     return {
       status: board,
-      items: tickets.filter((ticket) => ticket.status === board),
+      items: tickets.filter((ticket: Ticket) => ticket.status === board),
     };
   });
 

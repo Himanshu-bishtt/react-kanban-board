@@ -1,7 +1,14 @@
 import { createContext, useCallback, useContext, useState } from "react";
 import { Ticket, User } from "../components/Board/BoardContainer";
 
-export const AppContext = createContext({});
+interface AppContextProps {
+  tickets: Ticket[];
+  users: User[];
+  error: unknown;
+  getData: () => void;
+}
+
+export const AppContext = createContext({} as AppContextProps);
 
 interface AppProviderProps {
   children: React.ReactNode | any;

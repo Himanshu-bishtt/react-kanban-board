@@ -1,9 +1,10 @@
-import { BiSliderAlt, BiChevronDown } from "react-icons/bi";
 import { useState } from "react";
 
+import { BiSliderAlt, BiChevronDown } from "react-icons/bi";
+
+import { useFilter } from "../../context/FilterContext";
 import styles from "./Header.module.css";
 import logo from "../../assets/logo.png";
-import { useFilter } from "../../context/FilterContext";
 
 export default function Header() {
   const [popupOpen, setPopupOpen] = useState(false);

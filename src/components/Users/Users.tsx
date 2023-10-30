@@ -1,9 +1,6 @@
+import { useApp } from "../../context/AppContext";
 import { User } from "../Board/BoardContainer";
 import styles from "./Users.module.css";
-
-interface UsersProps {
-  users: User[];
-}
 
 function getInitials(name: string) {
   const words = name.split(" ");
@@ -18,12 +15,13 @@ function getInitials(name: string) {
   return initials;
 }
 
-const Users: React.FC<UsersProps> = ({ users }) => {
-  const userInitials = users.map((user) => getInitials(user.name));
+const Users = () => {
+  const { users } = useApp();
+  const userInitials = users.map((user: User) => getInitials(user.name));
 
   return (
     <div className={styles.users}>
-      {userInitials.map((user) => (
+      {userInitials.map((user: string) => (
         <button key={user}>{user}</button>
       ))}
     </div>

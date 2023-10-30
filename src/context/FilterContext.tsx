@@ -1,6 +1,13 @@
 import { createContext, useContext, useState } from "react";
 
-export const FilterContext = createContext({});
+interface FilterContextProps {
+  grouping: string;
+  ordering: string;
+  setGrouping: React.Dispatch<React.SetStateAction<string>>;
+  setOrdering: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export const FilterContext = createContext({} as FilterContextProps);
 
 interface FilterProviderProps {
   children: React.ReactNode | any;
