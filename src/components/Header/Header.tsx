@@ -12,10 +12,12 @@ export default function Header() {
 
   function handleGrouping(event: React.ChangeEvent<HTMLSelectElement>) {
     setGrouping(event.target.value);
+    localStorage.setItem("grouping", event.target.value);
   }
 
   function handleOrdering(event: React.ChangeEvent<HTMLSelectElement>) {
     setOrdering(event.target.value);
+    localStorage.setItem("ordering", event.target.value);
   }
 
   return (

@@ -14,8 +14,12 @@ interface FilterProviderProps {
 }
 
 export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
-  const [grouping, setGrouping] = useState<string>("status");
-  const [ordering, setOrdering] = useState<string>("priority");
+  const [grouping, setGrouping] = useState<string>(
+    localStorage.getItem("grouping") || "status"
+  );
+  const [ordering, setOrdering] = useState<string>(
+    localStorage.getItem("ordering") || "priority"
+  );
 
   return (
     <FilterContext.Provider
