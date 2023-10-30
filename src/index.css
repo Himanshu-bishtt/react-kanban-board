@@ -34,6 +34,13 @@
   --medium: 768px;
   --large: 1024px;
   --extra-large: 1280px;
+
+  --shadow: 0rem 2px 5px rgba(0, 0, 0, 0.1);
+  --card-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+
+  --dark-body: #0f0f0f;
+  --dark-card: #191e27;
+  --dark-shadow: 0rem 2px 5px rgba(209, 209, 209, 0.1);
 }
 
 a {
@@ -50,6 +57,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background-color: var(--gray-light-2);
+  transition: all 0.2s;
 }
 
 h1 {
@@ -93,4 +101,8 @@ iframe {
   max-width: 100%;
   display: block;
   pointer-events: none;
+}
+
+html[theme="dark"] body {
+  background-color: var(--dark-body);
 }

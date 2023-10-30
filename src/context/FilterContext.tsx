@@ -3,9 +3,11 @@ import { useApp } from "../hooks/UseApp";
 import { Ticket } from "../components/Board/BoardContainer";
 
 interface FilterContextProps {
+  theme: string;
   grouping: string;
   ordering: string;
   itemsPerBoard: { status: string | number; items: Ticket[] }[];
+  onTheme: (value: string) => void;
   onGrouping: (value: string) => void;
   onOrdering: (value: string) => void;
   getBoards: (value: string) => void;
@@ -24,6 +26,9 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
   );
   const [ordering, setOrdering] = useState<string>(
     localStorage.getItem("ordering") || "priority"
+  );
+  const [theme, setTheme] = useState<string>(
+    localStorage.getItem("theme") || "light"
   );
   const [itemsPerBoard, setItemsPerBoard] = useState<
     { status: string | number; items: Ticket[] }[]
@@ -73,6 +78,11 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
     [tickets]
   );
 
+  function handleTheme(value: string) {
+    setTheme(value);
+    localStorage.setItem("theme", value);
+  }
+
   function handleGrouping(value: string) {
     setGrouping(value);
     localStorage.setItem("grouping", value);
@@ -86,10 +96,12 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
   return (
     <FilterContext.Provider
       value={{
+        theme,
         grouping,
         ordering,
         itemsPerBoard,
         getBoards,
+        onTheme: handleTheme,
         onGrouping: handleGrouping,
         onOrdering: handleOrdering,
       }}

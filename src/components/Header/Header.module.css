@@ -1,5 +1,5 @@
 .header {
-  box-shadow: 0rem 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
   padding: 1rem 8rem;
   background-color: var(--white);
   display: flex;
@@ -24,8 +24,13 @@
   font-size: 0.9rem;
   position: relative;
   cursor: pointer;
+  transition: all 0.5s;
 }
 
+.select:hover {
+  transform: translateY(-0.15rem);
+  box-shadow: var(--shadow);
+}
 .content {
   display: flex;
   align-items: center;
@@ -38,9 +43,9 @@
   padding: 1rem;
   background-color: var(--white);
   border-radius: 10px;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
+  box-shadow: var(--shadow);
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 1rem;
   font-size: 0.9rem;
   opacity: 0;
@@ -51,7 +56,15 @@
 
 .popupItem {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   gap: 0.5rem;
+  padding: 0.2rem;
+}
+
+.popupItem select {
+  padding: 0.2rem;
+  border-radius: 5px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -63,4 +76,25 @@
     height: 2rem;
     width: 7rem;
   }
+}
+
+html[theme="dark"] .header {
+  background-color: var(--dark-body);
+  box-shadow: var(--dark-shadow);
+}
+
+html[theme="dark"] .select {
+  background-color: var(--dark-card);
+  color: var(--white);
+}
+
+html[theme="dark"] .popup {
+  background-color: var(--dark-card);
+  color: var(--white);
+  box-shadow: var(--dark-shadow);
+}
+
+html[theme="dark"] .popup select {
+  background-color: var(--dark-body);
+  color: var(--white);
 }

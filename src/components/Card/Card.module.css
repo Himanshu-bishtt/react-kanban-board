@@ -1,12 +1,12 @@
 .card {
   background-color: var(--white);
   padding: 1rem;
-  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--card-shadow);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   cursor: pointer;
-  transition: all 0.5s;
+  transition: transform 0.5s, background-color 0.25s;
   border-radius: 10px;
 }
 
@@ -59,4 +59,21 @@
 
 .content p {
   font-size: 0.8rem;
+}
+
+html[theme="dark"] .card {
+  background-color: var(--dark-card);
+}
+
+html[theme="dark"] .title {
+  color: var(--gray-light-1);
+}
+
+html[theme="dark"] .content span {
+  border-color: var(--gray-dark-2);
+}
+
+html[theme="dark"] .content div {
+  color: var(--gray-light-1);
+  border-color: var(--gray-dark-2);
 }
