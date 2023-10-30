@@ -10,8 +10,6 @@ interface AppProviderProps {
 export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [users, setUsers] = useState<User[]>([]);
-  const [grouping, setGrouping] = useState<string>("status");
-  const [ordering, setOrdering] = useState<string>("priority");
   const [error, setError] = useState<unknown>();
 
   const getData = useCallback(async function getData() {
@@ -19,6 +17,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
       const res = await fetch(
         "https://api.quicksell.co/v1/internal/frontend-assignment"
       );
+      if (!res.ok) throw new Error("Error loading data. Please try again");
       const data = await res.json();
       setTickets(data.tickets);
       setUsers(data.users);
@@ -33,12 +32,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
       value={{
         tickets,
         users,
-        grouping,
-        ordering,
         error,
         getData,
-        setGrouping,
-        setOrdering,
       }}
     >
       {children}

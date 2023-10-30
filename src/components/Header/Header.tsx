@@ -3,12 +3,11 @@ import { useState } from "react";
 
 import styles from "./Header.module.css";
 import logo from "../../assets/logo.png";
-import { useApp } from "../../context/AppContext";
+import { useFilter } from "../../context/FilterContext";
 
 export default function Header() {
   const [popupOpen, setPopupOpen] = useState(false);
-
-  const { grouping, ordering, setGrouping, setOrdering } = useApp();
+  const { grouping, ordering, setGrouping, setOrdering } = useFilter();
 
   function handleGrouping(event: React.ChangeEvent<HTMLSelectElement>) {
     setGrouping(event.target.value);
