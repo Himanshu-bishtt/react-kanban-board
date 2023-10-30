@@ -1,6 +1,7 @@
 import { useFilter } from "../../hooks/UseFilter";
 import styles from "./BoardContainer.module.css";
 import Board from "./Board";
+import { useEffect } from "react";
 
 export type Ticket = {
   id: string;
@@ -20,7 +21,11 @@ export type User = {
 interface BoardContainerProps {}
 
 const BoardContainer: React.FC<BoardContainerProps> = () => {
-  const { itemsPerBoard } = useFilter();
+  const { grouping, itemsPerBoard, getBoards } = useFilter();
+
+  useEffect(() => {
+    getBoards(grouping);
+  }, [getBoards, grouping]);
 
   return (
     <div className={styles.boardContainer}>
