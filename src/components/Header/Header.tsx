@@ -6,12 +6,20 @@ import styles from "./Header.module.css";
 import logo from "../../assets/logo.png";
 import logoDark from "../../assets/logo-dark.png";
 import { useFilter } from "../../hooks/UseFilter";
+import {
+  GROUPING,
+  GROUPING_OPTIONS,
+  ORDERING,
+  ORDERING_OPTIONS,
+  THEME,
+  THEME_OPTIONS,
+} from "../../constants";
 
 export default function Header() {
   const [popupOpen, setPopupOpen] = useState(false);
   const { theme, grouping, ordering, onTheme, onGrouping, onOrdering } =
     useFilter();
-  const [isDark, setIsDark] = useState(theme === "dark" ? true : false);
+  const [isDark, setIsDark] = useState(theme === THEME.DARK ? true : false);
 
   function handleTheme(event: React.ChangeEvent<HTMLSelectElement>) {
     onTheme(event.target.value);
@@ -29,11 +37,11 @@ export default function Header() {
   }
 
   useEffect(() => {
-    document.documentElement.setAttribute("theme", theme);
+    document.documentElement.setAttribute(THEME.NAME, theme);
   }, [theme]);
 
   useEffect(() => {
-    setIsDark(theme === "dark" ? true : false);
+    setIsDark(theme === THEME.DARK ? true : false);
   }, [theme]);
 
   useEffect(() => {
@@ -73,37 +81,59 @@ export default function Header() {
         }
       >
         <div className={styles.popupItem}>
-          <label htmlFor="grouping">Grouping</label>
+          <label htmlFor={GROUPING.NAME}>Grouping</label>
           <select
-            name="grouping"
-            id="grouping"
+            name={GROUPING.NAME}
+            id={GROUPING.NAME}
             value={grouping}
             onChange={handleGrouping}
           >
-            <option value="status">Status</option>
-            <option value="user">User</option>
-            <option value="priority">Priority</option>
+            {GROUPING_OPTIONS.map((option) => (
+              <option
+                key={`grouping-option-item-${option.id}`}
+                value={option.value}
+              >
+                {option.content}
+              </option>
+            ))}
           </select>
         </div>
 
         <div className={styles.popupItem}>
-          <label htmlFor="ordering">Ordering</label>
+          <label htmlFor={ORDERING.NAME}>Ordering</label>
           <select
-            name="ordering"
-            id="ordering"
+            name={ORDERING.NAME}
+            id={ORDERING.NAME}
             value={ordering}
             onChange={handleOrdering}
           >
-            <option value="priority">Priority</option>
-            <option value="title">Title</option>
+            {ORDERING_OPTIONS.map((option) => (
+              <option
+                key={`ordering-option-item-${option.id}`}
+                value={option.value}
+              >
+                {option.content}
+              </option>
+            ))}
           </select>
         </div>
 
         <div className={styles.popupItem}>
-          <label htmlFor="theme">Theme</label>
-          <select name="theme" id="theme" value={theme} onChange={handleTheme}>
-            <option value="light">Light</option>
-            <option value="dark">Dark</option>
+          <label htmlFor={THEME.NAME}>Theme</label>
+          <select
+            name={THEME.NAME}
+            id={THEME.NAME}
+            value={theme}
+            onChange={handleTheme}
+          >
+            {THEME_OPTIONS.map((option) => (
+              <option
+                key={`theme-option-item-${option.id}`}
+                value={option.value}
+              >
+                {option.content}
+              </option>
+            ))}
           </select>
         </div>
       </div>

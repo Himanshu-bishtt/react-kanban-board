@@ -1,3 +1,14 @@
+import {
+  FcHighPriority,
+  FcLowPriority,
+  FcMediumPriority,
+} from "react-icons/fc";
+import { IoWarningOutline } from "react-icons/io5";
+import { BiDotsHorizontalRounded } from "react-icons/bi";
+
+import { Ticket, User } from "../types";
+import { GROUPING, ORDERING, PRIORITY } from "../constants";
+
 export function getInitials(name: string) {
   const words = name.split(" ");
   if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
@@ -12,23 +23,59 @@ export function getInitials(name: string) {
 }
 
 export function priorityMap(priority: number | string) {
-  let name;
   switch (priority) {
     case 4:
-      name = "Urgent";
-      break;
+      return PRIORITY.URGENT;
     case 3:
-      name = "High";
-      break;
+      return PRIORITY.HIGH;
     case 2:
-      name = "Medium";
-      break;
+      return PRIORITY.MEDIUM;
     case 1:
-      name = "Low";
-      break;
+      return PRIORITY.LOW;
     case 0:
-      name = "No Priority";
-      break;
+      return PRIORITY.NO_PRIORITY;
   }
-  return name;
+}
+
+export function getPriorityIcon(priority: number) {
+  switch (priority) {
+    case 4:
+      return <IoWarningOutline color="red" />;
+    case 3:
+      return <FcHighPriority />;
+    case 2:
+      return <FcMediumPriority />;
+    case 1:
+      return <FcLowPriority />;
+    case 0:
+      return <BiDotsHorizontalRounded />;
+  }
+}
+
+export function setBoardName(
+  grouping: string,
+  name: string | number,
+  users: User[]
+) {
+  switch (grouping) {
+    case GROUPING.PRIORITY:
+      return priorityMap(name);
+    case GROUPING.USER:
+      return users?.find((user) => user.id === name)?.name;
+    case GROUPING.STATUS:
+      return name;
+  }
+}
+
+export function setFilteredItems(ordering: string, items: Ticket[]) {
+  switch (ordering) {
+    case ORDERING.PRIORITY:
+      return items.sort((a, b) => b.priority - a.priority);
+    case ORDERING.TITLE:
+      return items.sort((a, b) => {
+        if (a.title < b.title) return -1;
+        if (a.title > b.title) return 1;
+        else return 0;
+      });
+  }
 }

@@ -1,12 +1,14 @@
 import { createContext, useCallback, useState } from "react";
+
 import { useApp } from "../hooks/UseApp";
-import { Ticket } from "../components/Board/BoardContainer";
+import { Ticket } from "../types";
+import { GROUPING, ORDERING, THEME } from "../constants";
 
 interface FilterContextProps {
   theme: string;
   grouping: string;
   ordering: string;
-  itemsPerBoard: { status: string | number; items: Ticket[] }[];
+  totalBoards: { status: string | number; items: Ticket[] }[];
   onTheme: (value: string) => void;
   onGrouping: (value: string) => void;
   onOrdering: (value: string) => void;
@@ -22,21 +24,21 @@ interface FilterProviderProps {
 export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
   const { tickets } = useApp();
   const [grouping, setGrouping] = useState<string>(
-    localStorage.getItem("grouping") || "status"
+    localStorage.getItem(GROUPING.NAME) || GROUPING.STATUS
   );
   const [ordering, setOrdering] = useState<string>(
-    localStorage.getItem("ordering") || "priority"
+    localStorage.getItem(ORDERING.NAME) || ORDERING.PRIORITY
   );
   const [theme, setTheme] = useState<string>(
-    localStorage.getItem("theme") || "light"
+    localStorage.getItem(THEME.NAME) || THEME.LIGHT
   );
-  const [itemsPerBoard, setItemsPerBoard] = useState<
+  const [totalBoards, setTotalBoards] = useState<
     { status: string | number; items: Ticket[] }[]
   >([]);
 
   const getBoards = useCallback(
     function getBoards(value: string) {
-      if (value === "status") {
+      if (value === GROUPING.STATUS) {
         const totalBoards = Array.from(
           new Set(tickets.map((el: Ticket) => el.status))
         );
@@ -46,8 +48,8 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
             items: tickets.filter((ticket: Ticket) => ticket.status === board),
           };
         });
-        setItemsPerBoard(data);
-      } else if (value === "user") {
+        setTotalBoards(data);
+      } else if (value === GROUPING.USER) {
         const totalBoards = Array.from(
           new Set(tickets.map((el: Ticket) => el.userId))
         );
@@ -57,8 +59,8 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
             items: tickets.filter((ticket: Ticket) => ticket.userId === board),
           };
         });
-        setItemsPerBoard(data);
-      } else if (value === "priority") {
+        setTotalBoards(data);
+      } else if (value === GROUPING.PRIORITY) {
         const totalBoards = Array.from(
           new Set(
             tickets.map((el: Ticket) => el.priority).sort((a, b) => b - a)
@@ -72,7 +74,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
             ),
           };
         });
-        setItemsPerBoard(data);
+        setTotalBoards(data);
       }
     },
     [tickets]
@@ -80,17 +82,17 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
 
   function handleTheme(value: string) {
     setTheme(value);
-    localStorage.setItem("theme", value);
+    localStorage.setItem(THEME.NAME, value);
   }
 
   function handleGrouping(value: string) {
     setGrouping(value);
-    localStorage.setItem("grouping", value);
+    localStorage.setItem(GROUPING.NAME, value);
   }
 
   function handleOrdering(value: string) {
     setOrdering(value);
-    localStorage.setItem("ordering", value);
+    localStorage.setItem(ORDERING.NAME, value);
   }
 
   return (
@@ -99,7 +101,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
         theme,
         grouping,
         ordering,
-        itemsPerBoard,
+        totalBoards,
         getBoards,
         onTheme: handleTheme,
         onGrouping: handleGrouping,
