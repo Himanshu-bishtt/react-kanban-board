@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   BiChevronDown,
   BiChevronUp,
@@ -11,6 +11,7 @@ import { Ticket } from "../../types";
 import { setBoardName, setFilteredItems } from "../../helpers";
 import CardContainer from "../Card/CardContainer";
 import styles from "./Board.module.css";
+import Message from "../UI/Message";
 
 interface BoardProps {
   name: string | number;
@@ -27,6 +28,10 @@ const Board: React.FC<BoardProps> = ({ name, items }) => {
   function handleShowCards() {
     setShowCards((prev) => !prev);
   }
+
+  useEffect(() => {
+    setShowCards(true);
+  }, [grouping, ordering]);
 
   return (
     <div className={styles.board}>
@@ -49,9 +54,7 @@ const Board: React.FC<BoardProps> = ({ name, items }) => {
         </div>
       </div>
       {showCards && <CardContainer filteredItems={filteredItems} />}
-      {!showCards && (
-        <p className={styles.hideCards}>Click on arrow icon to show tickets</p>
-      )}
+      {!showCards && <Message message="Click on arrow icon to show tickets" />}
     </div>
   );
 };
