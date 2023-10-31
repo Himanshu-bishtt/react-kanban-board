@@ -1,5 +1,7 @@
 import { createContext, useCallback, useState } from "react";
-import { Ticket, User } from "../components/Board/BoardContainer";
+
+import { Ticket, User } from "../types";
+import { URL } from "../constants";
 
 interface AppContextProps {
   tickets: Ticket[];
@@ -21,15 +23,12 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
 
   const getData = useCallback(async function getData() {
     try {
-      const res = await fetch(
-        "https://api.quicksell.co/v1/internal/frontend-assignment"
-      );
+      const res = await fetch(URL);
       if (!res.ok) throw new Error("Error loading data. Please try again");
       const data = await res.json();
       setTickets(data.tickets);
       setUsers(data.users);
     } catch (err) {
-      console.log(err);
       setError(err);
     }
   }, []);

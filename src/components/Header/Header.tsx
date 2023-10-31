@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 
 import { BiSliderAlt, BiChevronDown } from "react-icons/bi";
 
-import styles from "./Header.module.css";
+import { useFilter } from "../../hooks/UseFilter";
+import Select from "../UI/Select";
 import logo from "../../assets/logo.png";
 import logoDark from "../../assets/logo-dark.png";
-import { useFilter } from "../../hooks/UseFilter";
+import styles from "./Header.module.css";
 import {
   GROUPING,
   GROUPING_OPTIONS,
@@ -36,6 +37,10 @@ export default function Header() {
     setPopupOpen(false);
   }
 
+  function handlePopup() {
+    setPopupOpen((prev) => !prev);
+  }
+
   useEffect(() => {
     document.documentElement.setAttribute(THEME.NAME, theme);
   }, [theme]);
@@ -53,89 +58,46 @@ export default function Header() {
     return () => document.removeEventListener("keydown", callback);
   }, []);
 
+  const popupStyles: { opacity: number; visibility: string & any } = popupOpen
+    ? { opacity: 1, visibility: "visible" }
+    : { opacity: 0, visibility: "hidden" };
+
   return (
     <header className={styles.header}>
       <img src={isDark ? logoDark : logo} alt="kanban board logo" />
 
-      <button
-        className={styles.select}
-        onClick={() => setPopupOpen((prev) => !prev)}
-      >
-        <span>
-          <BiSliderAlt />
-        </span>
+      <button className={styles.select} onClick={handlePopup}>
+        <BiSliderAlt />
         <div className={styles.content}>
           <p>Settings</p>
-          <span>
-            <BiChevronDown />
-          </span>
+          <BiChevronDown />
         </div>
       </button>
 
-      <div
-        className={styles.popup}
-        style={
-          popupOpen
-            ? { opacity: 1, visibility: "visible" }
-            : { opacity: 0, visibility: "hidden" }
-        }
-      >
-        <div className={styles.popupItem}>
-          <label htmlFor={GROUPING.NAME}>Grouping</label>
-          <select
-            name={GROUPING.NAME}
-            id={GROUPING.NAME}
-            value={grouping}
-            onChange={handleGrouping}
-          >
-            {GROUPING_OPTIONS.map((option) => (
-              <option
-                key={`grouping-option-item-${option.id}`}
-                value={option.value}
-              >
-                {option.content}
-              </option>
-            ))}
-          </select>
-        </div>
+      <div className={styles.popup} style={popupStyles}>
+        <Select
+          title="Grouping"
+          name={GROUPING.NAME}
+          selectedValue={grouping}
+          onChange={handleGrouping}
+          options={GROUPING_OPTIONS}
+        />
 
-        <div className={styles.popupItem}>
-          <label htmlFor={ORDERING.NAME}>Ordering</label>
-          <select
-            name={ORDERING.NAME}
-            id={ORDERING.NAME}
-            value={ordering}
-            onChange={handleOrdering}
-          >
-            {ORDERING_OPTIONS.map((option) => (
-              <option
-                key={`ordering-option-item-${option.id}`}
-                value={option.value}
-              >
-                {option.content}
-              </option>
-            ))}
-          </select>
-        </div>
+        <Select
+          title="Ordering"
+          name={ORDERING.NAME}
+          selectedValue={ordering}
+          onChange={handleOrdering}
+          options={ORDERING_OPTIONS}
+        />
 
-        <div className={styles.popupItem}>
-          <label htmlFor={THEME.NAME}>Theme</label>
-          <select
-            name={THEME.NAME}
-            id={THEME.NAME}
-            value={theme}
-            onChange={handleTheme}
-          >
-            {THEME_OPTIONS.map((option) => (
-              <option
-                key={`theme-option-item-${option.id}`}
-                value={option.value}
-              >
-                {option.content}
-              </option>
-            ))}
-          </select>
-        </div>
+        <Select
+          title="Theme"
+          name={THEME.NAME}
+          selectedValue={theme}
+          onChange={handleTheme}
+          options={THEME_OPTIONS}
+        />
       </div>
     </header>
   );

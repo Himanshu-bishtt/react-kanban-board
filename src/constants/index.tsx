@@ -30,22 +30,24 @@ export const PRIORITY = {
 };
 
 export const GROUPING_OPTIONS = [
-  { id: 1, value: GROUPING.STATUS, content: "Status" },
-  { id: 2, value: GROUPING.PRIORITY, content: "Priority" },
-  { id: 3, value: GROUPING.USER, content: "User" },
+  { id: 1, value: GROUPING.STATUS, label: "Status" },
+  { id: 2, value: GROUPING.PRIORITY, label: "Priority" },
+  { id: 3, value: GROUPING.USER, label: "User" },
 ];
 
 export const ORDERING_OPTIONS = [
-  { id: 1, value: ORDERING.PRIORITY, content: "Priority" },
-  { id: 2, value: ORDERING.TITLE, content: "Title" },
+  { id: 1, value: ORDERING.PRIORITY, label: "Priority" },
+  { id: 2, value: ORDERING.TITLE, label: "Title" },
 ];
 
 export const THEME_OPTIONS = [
-  { id: 1, value: THEME.LIGHT, content: "Light" },
-  { id: 2, value: THEME.DARK, content: "Dark" },
+  { id: 1, value: THEME.LIGHT, label: "Light" },
+  { id: 2, value: THEME.DARK, label: "Dark" },
 ];
 
 export const BOARD_BUTTONS = [
   { id: 1, icon: <BiPlus /> },
   { id: 2, icon: <BiDotsHorizontalRounded /> },
 ];
+
+export const URL = "https://api.quicksell.co/v1/internal/frontend-assignment";
