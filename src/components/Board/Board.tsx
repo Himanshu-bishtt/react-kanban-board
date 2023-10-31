@@ -1,10 +1,16 @@
+import { useState } from "react";
+import {
+  BiChevronDown,
+  BiChevronUp,
+  BiDotsHorizontalRounded,
+} from "react-icons/bi";
+
 import { useApp } from "../../hooks/UseApp";
 import { useFilter } from "../../hooks/UseFilter";
-import { BOARD_BUTTONS } from "../../constants";
 import { Ticket } from "../../types";
 import { setBoardName, setFilteredItems } from "../../helpers";
-import styles from "./Board.module.css";
 import CardContainer from "../Card/CardContainer";
+import styles from "./Board.module.css";
 
 interface BoardProps {
   name: string | number;
@@ -13,9 +19,14 @@ interface BoardProps {
 
 const Board: React.FC<BoardProps> = ({ name, items }) => {
   const { users } = useApp();
+  const [showCards, setShowCards] = useState(true);
   const { grouping, ordering } = useFilter();
   const boardName = setBoardName(grouping, name, users);
   const filteredItems = setFilteredItems(ordering, items);
+
+  function handleShowCards() {
+    setShowCards((prev) => !prev);
+  }
 
   return (
     <div className={styles.board}>
@@ -26,14 +37,21 @@ const Board: React.FC<BoardProps> = ({ name, items }) => {
             <p>({items.length})</p>
           </div>
         </div>
-
         <div className={styles.right}>
-          {BOARD_BUTTONS.map((button) => (
-            <button key={button.id}>{button.icon}</button>
-          ))}
+          <button onClick={handleShowCards}>
+            <span>{showCards ? <BiChevronUp /> : <BiChevronDown />}</span>
+          </button>
+          <button>
+            <span>
+              <BiDotsHorizontalRounded />
+            </span>
+          </button>
         </div>
       </div>
-      <CardContainer filteredItems={filteredItems} />
+      {showCards && <CardContainer filteredItems={filteredItems} />}
+      {!showCards && (
+        <p className={styles.hideCards}>Click on arrow icon to show tickets</p>
+      )}
     </div>
   );
 };

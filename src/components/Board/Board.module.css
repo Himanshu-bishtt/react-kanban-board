@@ -5,6 +5,7 @@
   align-items: center;
   justify-self: center;
   gap: 1rem;
+  min-width: 15rem;
 }
 
 .header {
@@ -34,5 +35,10 @@
 
 .header svg {
   color: var(--gray-dark-3);
-  font-size: 1.3rem;
+  font-size: 1.5rem;
+}
+
+.hideCards {
+  color: var(--gray-dark-3);
+  font-size: 0.8rem;
 }
