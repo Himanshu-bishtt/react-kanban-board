@@ -1,6 +1,6 @@
 import { useApp } from "../../hooks/UseApp";
 import { getInitials } from "../../helpers";
-import { User } from "../Board/BoardContainer";
+import { User } from "../../types";
 import styles from "./Users.module.css";
 
 const Users = () => {
