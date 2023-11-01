@@ -22,9 +22,14 @@
 
 .boardInfo {
   display: flex;
+  align-items: center;
   gap: 0.5rem;
   font-size: 0.9rem;
   color: var(--gray-dark-3);
+}
+
+.boardInfo svg {
+  font-size: 1rem;
 }
 
 .header .right {
@@ -33,7 +38,7 @@
   gap: 0.5rem;
 }
 
-.header svg {
+.right svg {
   color: var(--gray-dark-3);
   font-size: 1.5rem;
 }

@@ -3,8 +3,10 @@ import {
   FcLowPriority,
   FcMediumPriority,
 } from "react-icons/fc";
+import { RiCalendarTodoLine } from "react-icons/ri";
+import { TbProgress } from "react-icons/tb";
 import { IoWarningOutline } from "react-icons/io5";
-import { BiDotsHorizontalRounded } from "react-icons/bi";
+import { BiDotsHorizontalRounded, BiLogInCircle } from "react-icons/bi";
 
 import { Ticket, User } from "../types";
 import { GROUPING, ORDERING, PRIORITY } from "../constants";
@@ -37,6 +39,34 @@ export function priorityMap(priority: number | string) {
   }
 }
 
+export function reversePriorityMap(priority: number | string | undefined) {
+  switch (priority) {
+    case PRIORITY.URGENT:
+      return 4;
+    case PRIORITY.HIGH:
+      return 3;
+    case PRIORITY.MEDIUM:
+      return 2;
+    case PRIORITY.LOW:
+      return 1;
+    case PRIORITY.NO_PRIORITY:
+      return 0;
+    default:
+      return -1;
+  }
+}
+
+export function getStatusIcon(status: string | number | undefined) {
+  switch (status) {
+    case "Todo":
+      return <RiCalendarTodoLine />;
+    case "In progress":
+      return <TbProgress />;
+    case "Backlog":
+      return <BiLogInCircle />;
+  }
+}
+
 export function getPriorityIcon(priority: number) {
   switch (priority) {
     case 4:
@@ -49,6 +79,20 @@ export function getPriorityIcon(priority: number) {
       return <FcLowPriority />;
     case 0:
       return <BiDotsHorizontalRounded />;
+  }
+}
+
+export function setBoardIcon(
+  grouping: string,
+  boardName: number | string | undefined
+) {
+  switch (grouping) {
+    case GROUPING.STATUS:
+      return getStatusIcon(boardName);
+    case GROUPING.PRIORITY:
+      return getPriorityIcon(reversePriorityMap(boardName));
+    default:
+      return null;
   }
 }
 
