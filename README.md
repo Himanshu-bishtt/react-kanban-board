@@ -1,6 +1,6 @@
 ## Introduction
 
-Tasklist app with features like adding, removing, changing is completed property of tasks. Very simple and minimalistic design with basic routing, toasts, and conditional rendering.
+React kanban board for quicksell frontend assignment. Very simple and minimalistic design with advanced filtering and state updates, theming, conditional rendering and responsive design.
 
 ## Requirements
 
@@ -16,7 +16,7 @@ Tasklist app with features like adding, removing, changing is completed property
 
 - Typescript
 
-- Tailwind CSS
+- CSS modules
 
 ## Installation
 
