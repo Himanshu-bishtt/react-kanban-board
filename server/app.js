@@ -69,7 +69,7 @@ app.post("/api/v1/tickets", (req, res) => {
         message: "Internal server error",
       });
     }
-    res.status(200).json({
+    res.status(201).json({
       status: "success",
       results: tickets.length,
       data: {
@@ -79,23 +79,75 @@ app.post("/api/v1/tickets", (req, res) => {
   });
 });
 
-app.delete("/api/v1/tickets/:id", (req, res) => {
+app.patch("/api/v1/tickets/:id", (req, res) => {
   const id = `CAM-${req.params.id}`;
 
-  const updateTickets = tickets.filter((t) => t.id !== id);
+  if (Object.keys(req.body).length === 0) {
+    return res
+      .status(400)
+      .json({ status: "fail", message: "Request body cannot be empty" });
+  }
 
-  fs.writeFile("data/tickets.json", JSON.stringify(updateTickets), (err) => {
+  const ticket = tickets.find((t) => t.id === id);
+  const ticketIndex = tickets.findIndex((t) => t.id === id);
+
+  const newTag = req.body?.tag?.split(", ") || ticket.tag;
+
+  let newUserId = ticket.userId;
+  if (req.body.user) {
+    newUserId =
+      users.find((u) => u.name.toLowerCase() === req.body.user.toLowerCase())
+        .id || ticket.userId;
+  }
+
+  const newTitle = req.body?.title || ticket.title;
+  const newStatus = req.body?.status || ticket.status;
+  const newPriority = req.body?.priority || ticket.priority;
+
+  const updatedTicket = {
+    ...ticket,
+    title: newTitle,
+    tag: newTag,
+    userId: newUserId,
+    status: newStatus,
+    priority: newPriority,
+  };
+
+  tickets.splice(ticketIndex, 1, updatedTicket);
+
+  fs.writeFile("data/tickets.json", JSON.stringify(tickets), (err) => {
     if (err) {
-      return res.status(409).json({
+      return res.status(500).json({
         status: "fail",
         message: "Internal server error",
       });
     }
     res.status(200).json({
       status: "success",
-      results: updateTickets.length,
       data: {
-        tickets: updateTickets,
+        ticket: updatedTicket,
+      },
+    });
+  });
+});
+
+app.delete("/api/v1/tickets/:id", (req, res) => {
+  const id = `CAM-${req.params.id}`;
+
+  const updatedTickets = tickets.filter((t) => t.id !== id);
+
+  fs.writeFile("data/tickets.json", JSON.stringify(updatedTickets), (err) => {
+    if (err) {
+      return res.status(500).json({
+        status: "fail",
+        message: "Internal server error",
+      });
+    }
+    res.status(200).json({
+      status: "success",
+      results: updatedTickets.length,
+      data: {
+        tickets: updatedTickets,
       },
     });
   });
