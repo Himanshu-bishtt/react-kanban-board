@@ -79,4 +79,26 @@ app.post("/api/v1/tickets", (req, res) => {
   });
 });
 
+app.delete("/api/v1/tickets/:id", (req, res) => {
+  const id = `CAM-${req.params.id}`;
+
+  const updateTickets = tickets.filter((t) => t.id !== id);
+
+  fs.writeFile("data/tickets.json", JSON.stringify(updateTickets), (err) => {
+    if (err) {
+      return res.status(409).json({
+        status: "fail",
+        message: "Internal server error",
+      });
+    }
+    res.status(200).json({
+      status: "success",
+      results: updateTickets.length,
+      data: {
+        tickets: updateTickets,
+      },
+    });
+  });
+});
+
 export default app;
