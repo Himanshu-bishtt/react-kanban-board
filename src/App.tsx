@@ -9,6 +9,12 @@ function App() {
   const { getData } = useApp();
 
   useEffect(() => {
+    fetch("http://localhost:8000/")
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  }, []);
+
+  useEffect(() => {
     getData();
   }, [getData]);
 
