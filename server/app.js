@@ -11,7 +11,7 @@ app.use(cors());
 
 app.use(express.json());
 
-app.get("/api/v1/tickets", (req, res) => {
+function getTickets(req, res) {
   res.status(200).json({
     status: "success",
     results: tickets.length,
@@ -19,9 +19,9 @@ app.get("/api/v1/tickets", (req, res) => {
       tickets,
     },
   });
-});
+}
 
-app.get("/api/v1/tickets/:id", (req, res) => {
+function getTicket(req, res) {
   const ticketId = `CAM-${req.params.id}`;
 
   const ticket = tickets.find((t) => t.id === ticketId);
@@ -38,9 +38,9 @@ app.get("/api/v1/tickets/:id", (req, res) => {
       ticket,
     },
   });
-});
+}
 
-app.post("/api/v1/tickets", (req, res) => {
+function createTicket(req, res) {
   const { title, tag, user, status, priority } = req.body;
 
   const newId = Number(tickets.at(-1).id.split("-").at(1)) + 1;
@@ -77,9 +77,9 @@ app.post("/api/v1/tickets", (req, res) => {
       },
     });
   });
-});
+}
 
-app.patch("/api/v1/tickets/:id", (req, res) => {
+function updateTicket(req, res) {
   const id = `CAM-${req.params.id}`;
 
   if (Object.keys(req.body).length === 0) {
@@ -129,9 +129,9 @@ app.patch("/api/v1/tickets/:id", (req, res) => {
       },
     });
   });
-});
+}
 
-app.delete("/api/v1/tickets/:id", (req, res) => {
+function deleteTicket(req, res) {
   const id = `CAM-${req.params.id}`;
 
   const updatedTickets = tickets.filter((t) => t.id !== id);
@@ -151,6 +151,13 @@ app.delete("/api/v1/tickets/:id", (req, res) => {
       },
     });
   });
-});
+}
+
+app.route("/api/v1/tickets").get(getTickets).post(createTicket);
+app
+  .route("/api/v1/tickets/:id")
+  .get(getTicket)
+  .patch(updateTicket)
+  .delete(deleteTicket);
 
 export default app;
