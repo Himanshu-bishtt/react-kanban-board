@@ -41,6 +41,7 @@
 .content {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   flex-wrap: wrap;
   gap: 1rem;
 }
@@ -52,6 +53,11 @@
 }
 
 .content div {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.content .tags {
   display: flex;
   align-items: center;
   gap: 0.3rem;
@@ -80,4 +86,8 @@ html[theme="dark"] .content span {
 html[theme="dark"] .content div {
   color: var(--gray-light-1);
   border-color: var(--gray-dark-2);
+}
+
+html[theme="dark"] .content .deleteCard {
+  color: var(--gray-light-1);
 }

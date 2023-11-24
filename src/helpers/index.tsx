@@ -6,7 +6,8 @@ import {
 import { RiCalendarTodoLine } from "react-icons/ri";
 import { TbProgress } from "react-icons/tb";
 import { IoWarningOutline } from "react-icons/io5";
-import { BiDotsHorizontalRounded, BiLogInCircle } from "react-icons/bi";
+import { BiLogInCircle } from "react-icons/bi";
+import { FcWorkflow } from "react-icons/fc";
 
 import { Ticket, User } from "../types";
 import { GROUPING, ORDERING, PRIORITY } from "../constants";
@@ -78,7 +79,7 @@ export function getPriorityIcon(priority: number) {
     case 1:
       return <FcLowPriority />;
     case 0:
-      return <BiDotsHorizontalRounded />;
+      return <FcWorkflow />;
   }
 }
 

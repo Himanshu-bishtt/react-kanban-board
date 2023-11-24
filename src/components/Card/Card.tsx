@@ -1,5 +1,6 @@
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { GoDotFill } from "react-icons/go";
+import { SlOptions } from "react-icons/sl";
 
 import { Ticket } from "../../types";
 import { useApp } from "../../hooks/UseApp";
@@ -28,13 +29,20 @@ const Card: React.FC<CardProps> = ({ item }) => {
       </div>
       <p className={styles.title}>{item.title}</p>
       <div className={styles.content}>
-        <span>{priorityIcon}</span>
-        {item.tag.map((t, index) => (
-          <div key={`card-tag-${index}`}>
-            <AiOutlineCheckCircle />
-            <p>{t}</p>
-          </div>
-        ))}
+        <div>
+          <span>{priorityIcon}</span>
+          {item.tag.map((t, index) => (
+            <div className={styles.tags} key={`card-tag-${index}`}>
+              <AiOutlineCheckCircle />
+              <p>{t}</p>
+            </div>
+          ))}
+        </div>
+        <div className={styles.deleteCard}>
+          <button onClick={() => {}}>
+            <SlOptions />
+          </button>
+        </div>
       </div>
     </div>
   );
