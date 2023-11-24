@@ -1,9 +1,7 @@
-import fs from "fs";
 import express from "express";
 import cors from "cors";
-import router from "./routes/ticketsRoute.js";
-
-export const users = JSON.parse(fs.readFileSync("data/users.json", "utf-8"));
+import ticketRouter from "./routes/ticketsRoute.js";
+import userRouter from "./routes/usersRoute.js";
 
 const app = express();
 
@@ -11,6 +9,7 @@ app.use(cors());
 
 app.use(express.json());
 
-app.use("/api/v1/tickets", router);
+app.use("/api/v1/tickets", ticketRouter);
+app.use("/api/v1/users", userRouter);
 
 export default app;

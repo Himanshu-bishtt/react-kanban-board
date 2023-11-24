@@ -1,4 +1,4 @@
-import Ticket from "../models/ticketModal.js";
+import Ticket from "../models/ticketModel.js";
 
 export async function getTickets(req, res) {
   try {
