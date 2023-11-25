@@ -8,30 +8,30 @@ import { getPriorityIcon } from "../../helpers";
 import styles from "./Card.module.css";
 
 interface CardProps {
-  item: Ticket;
+  ticket: Ticket;
 }
 
-const Card: React.FC<CardProps> = ({ item }) => {
+const Card: React.FC<CardProps> = ({ ticket }) => {
   const { users } = useApp();
-  const user = users.find((user) => user.id === item.userId);
-  const priorityIcon = getPriorityIcon(item.priority);
+  const user = users.find((user) => user.name === ticket.userId);
+  const priorityIcon = getPriorityIcon(ticket.priority);
 
   return (
     <div className={styles.card}>
       <div className={styles.header}>
-        <p className={styles.userId}>{item.id}</p>
+        <p className={styles.userId}>{ticket._id}</p>
         <div className={styles.userInfo}>
           <span>
             {user?.available ? <GoDotFill color="#06cb06" /> : <GoDotFill />}
           </span>
-          <p>{user?.name}</p>
+          <p>{ticket.userId}</p>
         </div>
       </div>
-      <p className={styles.title}>{item.title}</p>
+      <p className={styles.title}>{ticket.title}</p>
       <div className={styles.content}>
         <div>
           <span>{priorityIcon}</span>
-          {item.tag.map((t, index) => (
+          {ticket.tag.map((t, index) => (
             <div className={styles.tags} key={`card-tag-${index}`}>
               <AiOutlineCheckCircle />
               <p>{t}</p>

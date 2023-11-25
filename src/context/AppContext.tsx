@@ -1,7 +1,7 @@
 import { createContext, useCallback, useState } from "react";
 
 import { Ticket, User } from "../types";
-import { URL } from "../constants";
+import { TICKETS, USERS } from "../constants";
 
 interface AppContextProps {
   tickets: Ticket[];
@@ -23,11 +23,16 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
 
   const getData = useCallback(async function getData() {
     try {
-      const res = await fetch(URL);
-      if (!res.ok) throw new Error("Error loading data. Please try again");
-      const data = await res.json();
-      setTickets(data.tickets);
-      setUsers(data.users);
+      const tickets = await fetch(TICKETS);
+      if (!tickets.ok) throw new Error("Error loading data. Please try again");
+      const ticketsData = await tickets.json();
+
+      const users = await fetch(USERS);
+      if (!users.ok) throw new Error("Error loading data. Please try again");
+      const usersData = await users.json();
+
+      setTickets(ticketsData.data.tickets);
+      setUsers(usersData.data.users);
     } catch (err) {
       setError(err);
     }

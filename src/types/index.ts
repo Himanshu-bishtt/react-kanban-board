@@ -1,5 +1,5 @@
 export type Ticket = {
-  id: string;
+  _id: string;
   priority: number;
   tag: string[];
   userId: string;
@@ -8,7 +8,7 @@ export type Ticket = {
 };
 
 export type User = {
-  id: string;
+  _id: string;
   name: string;
   available: boolean;
 };

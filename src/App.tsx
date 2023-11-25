@@ -9,12 +9,6 @@ function App() {
   const { getData } = useApp();
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/v1/tickets")
-      .then((res) => res.json())
-      .then((data) => console.log(data));
-  }, []);
-
-  useEffect(() => {
     getData();
   }, [getData]);
 

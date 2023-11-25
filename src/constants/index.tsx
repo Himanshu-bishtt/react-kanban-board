@@ -50,4 +50,8 @@ export const BOARD_BUTTONS = [
   { id: 2, icon: <BiDotsHorizontalRounded /> },
 ];
 
-export const URL = "https://api.quicksell.co/v1/internal/frontend-assignment";
+export const TICKETS =
+  "https://react-kanban-board-backend-production.up.railway.app/api/v1/tickets";
+
+export const USERS =
+  "https://react-kanban-board-backend-production.up.railway.app/api/v1/users";

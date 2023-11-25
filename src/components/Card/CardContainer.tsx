@@ -10,7 +10,7 @@ const CardContainer: React.FC<CardContainerProps> = ({ filteredItems }) => {
   return (
     <div className={styles.cardsContainer}>
       {filteredItems?.map((item) => (
-        <Card key={item.id} item={item} />
+        <Card key={item._id} ticket={item} />
       ))}
     </div>
   );
