@@ -1,6 +1,5 @@
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { GoDotFill } from "react-icons/go";
-// import { SlOptions } from "react-icons/sl";
 import { BiTrashAlt, BiEdit } from "react-icons/bi";
 
 import { Ticket } from "../../types";
