@@ -1,6 +1,7 @@
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { GoDotFill } from "react-icons/go";
-import { SlOptions } from "react-icons/sl";
+// import { SlOptions } from "react-icons/sl";
+import { BiTrashAlt, BiEdit } from "react-icons/bi";
 
 import { Ticket } from "../../types";
 import { useApp } from "../../hooks/UseApp";
@@ -19,7 +20,7 @@ const Card: React.FC<CardProps> = ({ ticket }) => {
   return (
     <div className={styles.card}>
       <div className={styles.header}>
-        <p className={styles.userId}>{ticket._id}</p>
+        {/* <p className={styles.userId}>{ticket._id}</p> */}
         <div className={styles.userInfo}>
           <span>
             {user?.available ? <GoDotFill color="#06cb06" /> : <GoDotFill />}
@@ -38,12 +39,29 @@ const Card: React.FC<CardProps> = ({ ticket }) => {
             </div>
           ))}
         </div>
-        <div className={styles.deleteCard}>
-          <button onClick={() => {}}>
-            <SlOptions />
-          </button>
-        </div>
       </div>
+      <ul className={styles.deleteCardOptions}>
+        <li
+          role="button"
+          className={styles.deleteCardOption}
+          onClick={() => alert("Edit")}
+        >
+          <span>
+            <BiEdit />
+          </span>
+          <p>Edit</p>
+        </li>
+        <li
+          role="button"
+          className={styles.deleteCardOption}
+          onClick={() => alert("Delete")}
+        >
+          <span>
+            <BiTrashAlt />
+          </span>
+          <p>Delete</p>
+        </li>
+      </ul>
     </div>
   );
 };

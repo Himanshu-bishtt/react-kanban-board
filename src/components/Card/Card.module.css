@@ -10,10 +10,6 @@
   border-radius: 10px;
 }
 
-.card:hover {
-  transform: translateX(1rem);
-}
-
 .header {
   display: flex;
   gap: 2rem;
@@ -58,6 +54,7 @@
 
 .content div {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.3rem;
 }
 
@@ -71,8 +68,33 @@
   border-radius: 5px;
 }
 
-.content p {
+.content {
   font-size: 0.8rem;
+}
+
+.deleteCardOptions {
+  font-size: 0.8rem;
+  display: flex;
+  gap: 0.2rem;
+  width: max-content;
+  padding: 0.2rem;
+  border-radius: 5px;
+  display: flex;
+  align-self: flex-end;
+}
+
+.deleteCardOptions .deleteCardOption {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  transition: background-color 0.25s;
+  padding: 0.2rem 0.4rem;
+  border-radius: 5px;
+}
+
+.deleteCardOptions .deleteCardOption:hover {
+  color: var(--gray-light-3);
+  background-color: var(--secondary);
 }
 
 html[theme="dark"] .card {
@@ -93,5 +115,9 @@ html[theme="dark"] .content div {
 }
 
 html[theme="dark"] .content .deleteCard {
+  color: var(--gray-light-1);
+}
+
+html[theme="dark"] .deleteCardOptions .deleteCardOption {
   color: var(--gray-light-1);
 }
