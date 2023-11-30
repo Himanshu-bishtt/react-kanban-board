@@ -12,14 +12,18 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ ticket }) => {
-  const { users } = useApp();
+  const { users, deleteTicket } = useApp();
   const user = users.find((user) => user.name === ticket.userId);
   const priorityIcon = getPriorityIcon(ticket.priority);
+
+  function handleCardDelete() {
+    deleteTicket(ticket._id);
+  }
 
   return (
     <div className={styles.card}>
       <div className={styles.header}>
-        {/* <p className={styles.userId}>{ticket._id}</p> */}
+        <p className={styles.userId}>{ticket._id}</p>
         <div className={styles.userInfo}>
           <span>
             {user?.available ? <GoDotFill color="#06cb06" /> : <GoDotFill />}
@@ -45,19 +49,15 @@ const Card: React.FC<CardProps> = ({ ticket }) => {
           className={styles.deleteCardOption}
           onClick={() => alert("Edit")}
         >
-          <span>
-            <BiEdit />
-          </span>
+          <BiEdit />
           <p>Edit</p>
         </li>
         <li
           role="button"
           className={styles.deleteCardOption}
-          onClick={() => alert("Delete")}
+          onClick={handleCardDelete}
         >
-          <span>
-            <BiTrashAlt />
-          </span>
+          <BiTrashAlt />
           <p>Delete</p>
         </li>
       </ul>

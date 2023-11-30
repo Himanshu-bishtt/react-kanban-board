@@ -7,11 +7,12 @@ import BoardContainer from "./components/Board/BoardContainer";
 import AddTicket from "./components/AddTicket/AddTicket";
 
 function App() {
-  const { getData } = useApp();
+  const { getTickets, getUsers } = useApp();
 
   useEffect(() => {
-    getData();
-  }, [getData]);
+    getTickets();
+    getUsers();
+  }, [getTickets, getUsers]);
 
   return (
     <Main>
