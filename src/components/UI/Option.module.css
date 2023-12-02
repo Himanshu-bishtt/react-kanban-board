@@ -1,0 +1,9 @@
+.options {
+  background-color: var(--white);
+  color: var(--gray-dark-2);
+  border: 1px solid var(--gray-light-1);
+  width: 100%;
+  padding: 0.4rem 0.7rem;
+  border-radius: 5px;
+  margin: 0.4rem 0;
+}
