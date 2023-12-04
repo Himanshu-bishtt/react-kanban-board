@@ -54,7 +54,7 @@ export function reversePriorityMap(priority: number | string | undefined) {
   }
 }
 
-export function getPriorityIcon(priority: number) {
+export function getPriorityIcon(priority: number | string) {
   switch (priority) {
     case 4:
       return <IoWarningOutline color="red" />;
@@ -99,9 +99,9 @@ export function setBoardName(
 export function setFilteredItems(ordering: string, items: Ticket[]) {
   switch (ordering) {
     case ORDERING.PRIORITY:
-      return items.sort((a, b) => b.priority - a.priority);
+      return [...items].sort((a, b) => Number(b.priority) - Number(a.priority));
     case ORDERING.TITLE:
-      return items.sort((a, b) => {
+      return [...items].sort((a, b) => {
         if (a.title < b.title) return -1;
         if (a.title > b.title) return 1;
         else return 0;

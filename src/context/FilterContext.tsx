@@ -63,7 +63,9 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
       } else if (value === GROUPING.PRIORITY) {
         const totalBoards = Array.from(
           new Set(
-            tickets.map((el: Ticket) => el.priority).sort((a, b) => b - a)
+            tickets
+              .map((el: Ticket) => el.priority)
+              .sort((a, b) => Number(b) - Number(a))
           )
         );
         const data = totalBoards.map((board) => {

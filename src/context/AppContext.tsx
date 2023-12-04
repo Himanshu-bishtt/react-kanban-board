@@ -12,7 +12,7 @@ interface AppContextProps {
   error: unknown;
   getTickets: () => void;
   getUsers: () => void;
-  deleteTicket: (_id: string) => Promise<void>;
+  deleteTicket: (_id: string | undefined) => Promise<void>;
   createTickets: (ticket: Ticket) => Promise<void>;
 }
 
@@ -52,7 +52,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     }
   }, []);
 
-  async function deleteTicket(_id: string) {
+  async function deleteTicket(_id: string | undefined) {
     try {
       setIsLoading(true);
       await remove(_id);

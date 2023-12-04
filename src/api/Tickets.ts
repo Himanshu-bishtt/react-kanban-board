@@ -13,7 +13,7 @@ export async function getAll(): Promise<any> {
   }
 }
 
-export async function remove(_id: string) {
+export async function remove(_id: string | undefined) {
   try {
     await fetch(`${TICKETS}/${_id}`, {
       method: "DELETE",

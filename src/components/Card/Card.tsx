@@ -15,6 +15,7 @@ const Card: React.FC<CardProps> = ({ ticket }) => {
   const { users, deleteTicket } = useApp();
   const user = users.find((user) => user.name === ticket.userId);
   const priorityIcon = getPriorityIcon(ticket.priority);
+  const tags = ticket.tag as string[];
 
   function handleCardDelete() {
     deleteTicket(ticket._id);
@@ -35,7 +36,7 @@ const Card: React.FC<CardProps> = ({ ticket }) => {
       <div className={styles.content}>
         <div>
           <span>{priorityIcon}</span>
-          {ticket.tag.map((t, index) => (
+          {tags.map((t, index) => (
             <div className={styles.tags} key={`card-tag-${index}`}>
               <AiOutlineCheckCircle />
               <p>{t}</p>
