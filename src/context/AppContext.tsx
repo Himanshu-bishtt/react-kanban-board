@@ -2,8 +2,8 @@ import { createContext, useCallback, useState } from "react";
 import { message } from "antd";
 
 import { Ticket, User } from "../types";
-import { getAllTickets, getAllUsers } from "../api";
-import { TICKETS } from "../constants";
+import { create, remove, getAll } from "../api/Tickets";
+import { getAllUsers } from "../api/Users";
 
 interface AppContextProps {
   isLoading: boolean;
@@ -13,6 +13,7 @@ interface AppContextProps {
   getTickets: () => void;
   getUsers: () => void;
   deleteTicket: (_id: string) => Promise<void>;
+  createTickets: (ticket: Ticket) => Promise<void>;
 }
 
 export const AppContext = createContext({} as AppContextProps);
@@ -30,7 +31,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const getTickets = useCallback(async function getData() {
     try {
       setIsLoading(true);
-      const tickets = await getAllTickets();
+      const tickets = await getAll();
       setTickets(tickets.data.tickets);
     } catch (err) {
       setError(err);
@@ -54,16 +55,21 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   async function deleteTicket(_id: string) {
     try {
       setIsLoading(true);
-      await fetch(`${TICKETS}/${_id}`, {
-        method: "DELETE",
-      });
+      await remove(_id);
       await getTickets();
       message.success("Ticket deleted");
     } catch (err: any) {
-      alert(err.message);
-      message.success(err.message);
-    } finally {
-      setIsLoading(false);
+      message.error(err.message);
+    }
+  }
+
+  async function createTickets(ticket: Ticket) {
+    try {
+      await create(ticket);
+      await getTickets();
+      message.success("Ticket created");
+    } catch (err: any) {
+      message.error(err.message);
     }
   }
 
@@ -77,6 +83,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         getTickets,
         getUsers,
         deleteTicket,
+        createTickets,
       }}
     >
       {children}

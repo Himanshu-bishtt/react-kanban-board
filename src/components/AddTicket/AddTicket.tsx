@@ -9,21 +9,38 @@ import Option from "../UI/Option";
 import { useApp } from "../../hooks/UseApp";
 
 const AddTicket = () => {
-  const { users } = useApp();
+  const { users, createTickets } = useApp();
 
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState("");
   const [status, setStatus] = useState("");
   const [priority, setPriority] = useState("4");
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState(users.at(0)?.name || "Anoop Sharma");
 
   const options = users.map((user) => {
     return { name: user.name, id: user._id };
   });
 
+  function resetState() {
+    setTitle("");
+    setTags("");
+    setStatus("");
+    setPriority("4");
+    setUser(users.at(0)?.name || "Anoop Sharma");
+  }
+
   function handleAddTicket() {
-    console.log(title, tags, status, priority, user);
+    if (!open || !title || !tags || !user) return;
+    createTickets({
+      title,
+      tag: tags,
+      priority,
+      status,
+      userId: user,
+    });
+
+    resetState();
     setOpen(false);
   }
 
@@ -37,7 +54,11 @@ const AddTicket = () => {
         open={open}
         onOk={handleAddTicket}
         okText="Add"
-        onCancel={() => setOpen(false)}
+        centered
+        onCancel={() => {
+          resetState();
+          setOpen(false);
+        }}
         okButtonProps={{ style: { backgroundColor: "var(--primary)" } }}
       >
         <Input
@@ -61,6 +82,7 @@ const AddTicket = () => {
         <Option
           value={priority}
           onChange={(e) => setPriority(e.target.value)}
+          defaultMessage="Select priority"
           options={[
             { id: 0, name: "0" },
             { id: 1, name: "1" },
@@ -71,6 +93,7 @@ const AddTicket = () => {
         />
         <Option
           value={user}
+          defaultMessage="Select user"
           onChange={(e) => setUser(e.target.value)}
           options={options}
         />

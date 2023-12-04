@@ -1,7 +1,7 @@
 export type Ticket = {
-  _id: string;
-  priority: number;
-  tag: string[];
+  _id?: string;
+  priority: number | string;
+  tag: string | string[];
   userId: string;
   status: string;
   title: string;
