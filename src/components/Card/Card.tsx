@@ -12,13 +12,18 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ ticket }) => {
-  const { users, deleteTicket } = useApp();
+  const { users, deleteTicket, setUpdateTicketModal, getTicket } = useApp();
   const user = users.find((user) => user.name === ticket.userId);
   const priorityIcon = getPriorityIcon(ticket.priority);
   const tags = ticket.tag as string[];
 
-  function handleCardDelete() {
+  function handleTicketDelete() {
     deleteTicket(ticket._id);
+  }
+
+  function handleTicketUpdate() {
+    setUpdateTicketModal(true);
+    getTicket(ticket._id);
   }
 
   return (
@@ -48,7 +53,7 @@ const Card: React.FC<CardProps> = ({ ticket }) => {
         <li
           role="button"
           className={styles.deleteCardOption}
-          onClick={() => alert("Edit")}
+          onClick={handleTicketUpdate}
         >
           <BiEdit />
           <p>Edit</p>
@@ -56,7 +61,7 @@ const Card: React.FC<CardProps> = ({ ticket }) => {
         <li
           role="button"
           className={styles.deleteCardOption}
-          onClick={handleCardDelete}
+          onClick={handleTicketDelete}
         >
           <BiTrashAlt />
           <p>Delete</p>

@@ -5,9 +5,10 @@ import Main from "./components/Main/Main";
 import Header from "./components/Header/Header";
 import BoardContainer from "./components/Board/BoardContainer";
 import AddTicket from "./components/AddTicket/AddTicket";
+import UpdateTicket from "./components/UpdateTicket/UpdateTicket";
 
 function App() {
-  const { getTickets, getUsers } = useApp();
+  const { isLoading, updateTicketModal, getTickets, getUsers } = useApp();
 
   useEffect(() => {
     getTickets();
@@ -19,6 +20,7 @@ function App() {
       <Header />
       <BoardContainer />
       <AddTicket />
+      {updateTicketModal && !isLoading && <UpdateTicket />}
     </Main>
   );
 }

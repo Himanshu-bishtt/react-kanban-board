@@ -1,6 +1,7 @@
 import styles from "./Input.module.css";
 
 interface InputProps {
+  name?: string;
   value: string;
   placeholder: string;
   type: string;
@@ -8,6 +9,7 @@ interface InputProps {
 }
 
 const Input: React.FC<InputProps> = ({
+  name,
   value,
   type,
   onChange,
@@ -15,6 +17,7 @@ const Input: React.FC<InputProps> = ({
 }) => {
   return (
     <input
+      name={name}
       value={value}
       type={type}
       onChange={onChange}
