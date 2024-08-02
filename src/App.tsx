@@ -18,6 +18,10 @@ function App() {
   return (
     <Main>
       <Header />
+      <p>
+        Platform which hosted the backend API had a trial period which was
+        ended! Please see the github repo
+      </p>
       <BoardContainer />
       <AddTicket />
       {updateTicketModal && !isLoading && <UpdateTicket />}
